@@ -27,6 +27,7 @@ def listSplitToDict(ltarget, ssplit = "|"):
 
 citynumberdatafile = r".\citynumber.db"
 if not os.path.exists(citynumberdatafile):
+    print('正在读取城市代码...')
     dcitynumber = {}
     dprovinces = listSplitToDict(stringSplitToList(urlRead("http://m.weather.com.cn/data5/city.xml")))
     for province in dprovinces:
@@ -35,7 +36,6 @@ if not os.path.exists(citynumberdatafile):
             dcounties = listSplitToDict(stringSplitToList(urlRead("http://m.weather.com.cn/data5/city"+city+".xml")))
             for county in dcounties:
                 dcitynumber[dcounties[county]] = county
-    print('正在读取城市代码...')
     hfile = open(citynumberdatafile, "wb")
     pickle.dump(dcitynumber, hfile)
     hfile.close()
